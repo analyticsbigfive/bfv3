@@ -49,20 +49,22 @@ function toggleSolution(idx: number) {
       </div>
 
       <!-- Solution detail card — shown on circle click -->
-      <!-- Overlay centré -->
-      <Transition name="card-reveal">
-        <div v-if="selectedIndex !== null" :key="selectedIndex" class="solution-overlay" @click.self="selectedIndex = null">
-          <div class="solution-detail-wrapper">
-            <button class="overlay-close" aria-label="Fermer" @click="selectedIndex = null">✕</button>
-            <HomeSolutionCard
-              :title="solutions.items[selectedIndex].title"
-              :highlight="solutions.items[selectedIndex].highlight"
-              :description="solutions.items[selectedIndex].description"
-              :image="solutions.items[selectedIndex].image"
-            />
+      <!-- Overlay centré — Teleport pour éviter le clipping par Swiper -->
+      <Teleport to="body">
+        <Transition name="card-reveal">
+          <div v-if="selectedIndex !== null" :key="selectedIndex" class="solution-overlay" @click.self="selectedIndex = null">
+            <div class="solution-detail-wrapper">
+              <button class="overlay-close" aria-label="Fermer" @click="selectedIndex = null">✕</button>
+              <HomeSolutionCard
+                :title="solutions.items[selectedIndex].title"
+                :highlight="solutions.items[selectedIndex].highlight"
+                :description="solutions.items[selectedIndex].description"
+                :image="solutions.items[selectedIndex].image"
+              />
+            </div>
           </div>
-        </div>
-      </Transition>
+        </Transition>
+      </Teleport>
     </div>
   </section>
 </template>
@@ -229,62 +231,6 @@ $btn-gradient-end: #80368d;
   }
 }
 
-/* Card reveal transition */
-.card-reveal-enter-active {
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.card-reveal-leave-active {
-  transition: all 0.3s ease;
-}
-.card-reveal-enter-from {
-  opacity: 0;
-  transform: translateY(20px) scale(0.97);
-}
-.card-reveal-leave-to {
-  opacity: 0;
-  transform: translateY(-10px) scale(0.97);
-}
-
-.solution-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 200;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(10, 6, 30, 0.7);
-  padding: 1.5rem;
-}
-
-.solution-detail-wrapper {
-  position: relative;
-  width: 100%;
-  max-width: 680px;
-}
-
-.overlay-close {
-  position: absolute;
-  top: -14px;
-  right: -14px;
-  z-index: 10;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: none;
-  background: var(--color-accent-magenta);
-  color: white;
-  font-size: 0.85rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s;
-
-  &:hover {
-    transform: scale(1.1);
-  }
-}
-
 /* Parallax d'entrée */
 .parallax-title {
   opacity: 0;
@@ -337,5 +283,64 @@ $btn-gradient-end: #80368d;
 
     display: flex;
     align-items: center;
+}
+</style>
+
+<!-- Styles non-scoped pour l'overlay téléporté au body -->
+<style lang="scss">
+.solution-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 6, 30, 0.7);
+  padding: 1.5rem;
+}
+
+.solution-detail-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 780px;
+}
+
+.overlay-close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  z-index: 10;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-accent-magenta);
+  color: white;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+/* Card reveal transition */
+.card-reveal-enter-active {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card-reveal-leave-active {
+  transition: all 0.3s ease;
+}
+.card-reveal-enter-from {
+  opacity: 0;
+  transform: translateY(20px) scale(0.97);
+}
+.card-reveal-leave-to {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.97);
 }
 </style>

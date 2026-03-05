@@ -137,28 +137,28 @@
         "highlight": "Stratégie",
         "title": "Conseil & Stratégie",
         "description": "Audit de positionnement et feuilles de route pour aligner votre image sur votre réalité business.",
-        "image": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80&auto=format"
+        "image": "/images/popup/conseil.webp"
       },
       {
         "label": "Veille &",
         "highlight": "Intelligence",
         "title": "Veille & Intelligence",
         "description": "Transformez le bruit médiatique en signaux faibles exploitables. Comprendre avant les autres.",
-        "image": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&q=80&auto=format"
+        "image": "/images/popup/veille.webp"
       },
       {
         "label": "Big Five",
         "highlight": "Academy",
         "title": "Big Five Academy",
         "description": "Renforcement de capacité et transfert de compétences pour l'autonomie de vos équipes.",
-        "image": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80&auto=format"
+        "image": "/images/popup/academy.webp"
       },
       {
         "label": "Solutions",
         "highlight": "Digitales",
         "title": "Solutions Digitales",
         "description": "Développement sur-mesure et IA appliquée. La technologie par la preuve.",
-        "image": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80&auto=format"
+        "image": "/images/popup/digitales.webp"
       }
     ]
   },
