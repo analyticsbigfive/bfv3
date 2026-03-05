@@ -92,7 +92,7 @@ function navigateTo(index: number) {
 
 <style scoped lang="scss">
 #appheader{
-  padding-top: 52px; /* Account for fixed header */
+  padding-top: 0px; /* Account for fixed header */
 }
 .header--transparent {
   background: transparent;
@@ -112,8 +112,8 @@ function navigateTo(index: number) {
 
 .nav-link {
   color: rgba(255, 255, 255, 0.85);
-font-family: var(--font-display);
-    font-size: 14px;
+  font-family: var(--font-display);
+  font-size: clamp(11px, 1.1vw, 14px);
   font-weight: 500;
   letter-spacing: 0.1em;
   text-decoration: none;
@@ -130,7 +130,7 @@ font-family: var(--font-display);
 .nav-contact {
   color: white;
   font-family: var(--font-display);
-  font-size: 0.8rem;
+  font-size: clamp(0.65rem, 1vw, 0.8rem);
   font-weight: 500;
   letter-spacing: 0.08em;
   padding: 0.5rem 1.25rem;

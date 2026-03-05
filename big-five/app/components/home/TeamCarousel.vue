@@ -30,29 +30,14 @@ onMounted(() => {
     checkScroll()
   }
 })
-
-const sectionRef = ref<HTMLElement | null>(null)
-const isVisible = ref(false)
-
-onMounted(() => {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      if (entries[0]?.isIntersecting) isVisible.value = true
-    },
-    { threshold: 0.2 }
-  )
-  if (sectionRef.value) observer.observe(sectionRef.value)
-})
 </script>
 
 <template>
   <section
-    ref="sectionRef"
-    class="team-section h-full relative flex flex-col justify-center"
-    :class="{ 'section-visible': isVisible }"
+    class="team-section h-full relative flex flex-col justify-center overflow-hidden"
   >
-    <div class="max-w-[1440px] mx-auto px-6 lg:px-12 w-full">
-      <UiSectionTitle :title="team.sectionTitle" class="reveal-item" />
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-12 w-full relative z-10">
+      <UiSectionTitle :title="team.sectionTitle" class="parallax-title" />
 
       <div class="relative mt-8">
         <!-- Carousel -->
@@ -63,7 +48,7 @@ onMounted(() => {
           <div
             v-for="(member, idx) in team.members"
             :key="member.name"
-            class="team-card flex-shrink-0 snap-start reveal-item"
+            class="team-card flex-shrink-0 snap-start parallax-card"
             :style="{ '--card-delay': idx }"
           >
             <a :href="member.linkedin" class="linkedin-icon" aria-label="LinkedIn">
@@ -104,9 +89,9 @@ onMounted(() => {
   justify-content: center;
   background: #0d0b2e;
   border-radius: 16px;
-  padding: 2.5rem 2rem;
-  min-width: 220px;
-  width: 240px;
+  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.25rem, 2vw, 2rem);
+  min-width: 180px;
+  width: clamp(180px, 25vw, 240px);
   gap: 0.75rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -132,14 +117,14 @@ onMounted(() => {
 }
 
 .team-name {
-  font-size: 1.15rem;
+  font-size: clamp(0.9rem, 1.5vw, 1.15rem);
   font-weight: 700;
   color: white;
   text-align: center;
 }
 
 .team-role {
-  font-size: 0.85rem;
+  font-size: clamp(0.75rem, 1.2vw, 0.85rem);
   color: var(--color-text-light);
   text-align: center;
   font-style: italic;
@@ -181,15 +166,17 @@ onMounted(() => {
   display: none;
 }
 
-/* Scroll reveal */
-.reveal-item {
+/* Parallax d'entrée */
+.parallax-title {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  transition-delay: calc(var(--card-delay, 0) * 0.1s);
+  transform: translateY(60px);
+  transition: opacity 0.9s ease, transform 1s ease;
 }
-.section-visible .reveal-item {
-  opacity: 1;
-  transform: translateY(0);
+.parallax-card {
+  opacity: 0;
+  transform: translateY(120px);
+  transition: opacity 0.9s ease, transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--card-delay, 0) * 0.08s + 0.15s);
 }
+/* Activation via main.scss : #equipe.swiper-slide-active */
 </style>

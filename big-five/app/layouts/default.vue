@@ -13,8 +13,6 @@
       </svg>
     </div>
 
-    <LayoutAppHeader />
-
     <main>
       <slot />
     </main>

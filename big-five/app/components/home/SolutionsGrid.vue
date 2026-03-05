@@ -1,44 +1,29 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { Plus, X } from 'lucide-vue-next'
 
 const { solutions } = useContent()
 
-const sectionRef = ref<HTMLElement | null>(null)
-const isVisible = ref(false)
 const selectedIndex = ref<number | null>(null)
 
 function toggleSolution(idx: number) {
   selectedIndex.value = selectedIndex.value === idx ? null : idx
 }
-
-onMounted(() => {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      if (entries[0]?.isIntersecting) isVisible.value = true
-    },
-    { threshold: 0.1 }
-  )
-  if (sectionRef.value) observer.observe(sectionRef.value)
-})
 </script>
 
 <template>
   <section
-    ref="sectionRef"
-    id="solutions"
-    class="solutions-section h-full py-16 lg:py-20"
-    :class="{ 'section-visible': isVisible }"
+    class="solutions-section h-full py-16 lg:py-20 relative overflow-hidden"
   >
-    <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
-      <UiSectionTitle :title="solutions.sectionTitle" class="reveal-item" />
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
+      <UiSectionTitle :title="solutions.sectionTitle" class="parallax-title" />
 
       <!-- Circles grid -->
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mt-8 mb-10">
         <div
           v-for="(item, idx) in solutions.items"
           :key="item.highlight"
-          class="solution-circle reveal-item"
+          class="solution-circle parallax-circle"
           :style="{ '--circle-delay': idx }"
         >
           <div
@@ -108,11 +93,11 @@ onMounted(() => {
 }
 
 .circle-label {
-  font-size: 0.8rem;
+  font-size: clamp(0.65rem, 1.2vw, 0.8rem);
   color: var(--color-text-light);
 }
 .circle-highlight {
-  font-size: 1rem;
+  font-size: clamp(0.8rem, 1.4vw, 1rem);
   font-weight: 700;
   color: white;
 }
@@ -157,22 +142,30 @@ onMounted(() => {
   margin: 0 auto;
 }
 
-/* Reveal animations */
-.reveal-item {
+/* Parallax d'entrée */
+.parallax-title {
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.7s ease;
-  transition-delay: calc(var(--circle-delay, 0) * 0.1s);
+  transform: translateY(60px);
+  transition: opacity 0.9s ease, transform 1s ease;
 }
-.section-visible .reveal-item {
-  opacity: 1;
-  transform: translateY(0);
+.parallax-circle {
+  opacity: 0;
+  transform: translateY(140px);
+  transition: opacity 0.9s ease, transform 1.3s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--circle-delay, 0) * 0.1s + 0.1s);
 }
+/* Activation via main.scss : #solutions.swiper-slide-active */
 
 @media (max-width: 768px) {
   .circle-inner {
-    width: 110px;
-    height: 110px;
+    width: 100px;
+    height: 100px;
+  }
+  .circle-label {
+    font-size: 0.6rem;
+  }
+  .circle-highlight {
+    font-size: 0.75rem;
   }
 }
 </style>

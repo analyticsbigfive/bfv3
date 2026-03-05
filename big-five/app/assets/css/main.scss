@@ -107,20 +107,137 @@ border-radius: 50px; /* ajuste selon le rayon voulu */
 #rage, .lepiutan{
   padding:1em 0 !important;
 }
+h1 {
+  font-size: clamp(1.5rem, 5vw, 5rem);
+}
 .hero-title{
   max-width:50vw;
-font-size: 65px !important;
+}
+.hero-service-item {
+  font-size: clamp(0.8rem, 1.5vw, 1.375rem) !important; // max 22px
 }
 .header--scrolled{
   padding-top: 0 !important;
 }
-#agence{
-  background-size:cover;
-}
+
 
 body, html{
 background: linear-gradient(to bottom, #2d3173 0%, #4a3080 50%, #7b3090 100%);
   section{
     background: transparent !important;
   }
+}
+
+
+#agence{
+  &::after{
+    content:'';
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:10vh;
+    background:url('/images/deco.jpg') !important;
+    background-position: fixed;
+    background-size:cover !important;
+    background-position:center top;
+    background-repeat:no-repeat;
+    z-index: 10000;
+  }
+  .image-col{
+    position:relative;
+    z-index: 1;
+    will-change: transform;
+  }
+  .image-col-bg{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: url('/images/sans-titre7-grand.webp');
+    background-size:contain;
+    background-position:center;
+    background-repeat:no-repeat;
+    z-index: -1;
+    pointer-events: none;
+  }
+}
+
+/* Parallaxe d'entrée — activation par slide */
+#agence.swiper-slide-active {
+  .content-col {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+  .image-col {
+    opacity: 1 !important;
+    // transform géré par le JS tilt — ne pas forcer ici
+  }
+  .image-col-bg,
+  .agency-img {
+    opacity: 1 !important;
+  }
+}
+
+#equipe.swiper-slide-active {
+  .parallax-title,
+  .parallax-card {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+  .team-section::before {
+    opacity: 1 !important;
+    transform: translateY(0) scale(1.1) !important;
+  }
+}
+
+#solutions.swiper-slide-active {
+  .parallax-title,
+  .parallax-circle {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+  .solutions-section::before {
+    opacity: 1 !important;
+    transform: translateY(0) scale(1.1) !important;
+  }
+}
+
+#observatoire.swiper-slide-active {
+  .parallax-title,
+  .parallax-hero,
+  .insight-block {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+  .bar-fill {
+    width: var(--target-width) !important;
+  }
+}
+
+/* Arrière-plans SVG animés en parallax */
+.team-section,
+.solutions-section {
+  position: relative;
+  background: none !important;
+}
+.team-section::before,
+.solutions-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: translateY(120px) scale(1.15);
+  transition: opacity 1.2s ease 0.1s, transform 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
+}
+.team-section::before {
+  background-image: url('/images/logo_6.svg');
+}
+.solutions-section::before {
+  background-image: url('/images/logo_5.svg');
 }

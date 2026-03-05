@@ -47,13 +47,13 @@ onMounted(() => {
       </h1>
 
       <ul
-        class="flex flex-col gap-3 mt-10 list-none p-0"
+        class="hero-services flex flex-col gap-2 md:gap-3 mt-6 md:mt-10 list-none p-0"
         :class="{ 'hero-buttons--visible': heroReady }"
       >
         <li
           v-for="(service, idx) in hero.services"
           :key="idx"
-          class="w-fit"
+          class="hero-service-item w-fit"
         >
           {{ service }}
         </li>
@@ -77,13 +77,19 @@ onMounted(() => {
 <style scoped lang="scss">
 
 .hero-title {
-  font-size: clamp(2rem, 6vw, 5rem);
+  font-size: clamp(1.5rem, 5vw, 5rem);
   font-weight: 300;
   color: white;
   line-height: 1.1;
   letter-spacing: 0.04em;
   display: flex;
   flex-direction: column;
+}
+
+.hero-service-item {
+  font-size: clamp(0.8rem, 1.5vw, 1.1rem);
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.05em;
 }
 
 .hero-buttons--visible :deep(.pill-button) {

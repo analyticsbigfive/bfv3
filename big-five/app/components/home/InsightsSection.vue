@@ -1,34 +1,17 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-
 const { insights } = useContent()
 
-const sectionRef = ref<HTMLElement | null>(null)
-const isVisible = ref(false)
-
-onMounted(() => {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      if (entries[0]?.isIntersecting) isVisible.value = true
-    },
-    { threshold: 0.15 }
-  )
-  if (sectionRef.value) observer.observe(sectionRef.value)
-})
 </script>
 
 <template>
   <section
-    ref="sectionRef"
-    id="observatoire"
     class="insights-section h-full py-16 lg:py-20"
-    :class="{ 'section-visible': isVisible }"
   >
     <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
-      <UiSectionTitle :title="insights.sectionTitle" class="reveal-item" />
+      <UiSectionTitle :title="insights.sectionTitle" class="parallax-title" />
 
       <!-- Insights Hero -->
-      <div class="insights-hero reveal-item mb-10">
+      <div class="insights-hero parallax-hero mb-10">
         <div class="insights-hero-bg">
           <img
             :src="insights.hero.image"
@@ -80,7 +63,6 @@ onMounted(() => {
                     '--target-width': bar.value + '%',
                     '--bar-delay': idx * 0.2 + 's'
                   }"
-                  :class="{ 'bar-fill--animated': isVisible }"
                 />
               </div>
             </div>
@@ -146,17 +128,13 @@ onMounted(() => {
 
 .insight-block {
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.7s ease;
-  transition-delay: calc(var(--block-delay, 0) * 0.2s);
-}
-.section-visible .insight-block {
-  opacity: 1;
-  transform: translateY(0);
+  transform: translateY(100px);
+  transition: opacity 0.9s ease, transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--block-delay, 0) * 0.15s + 0.2s);
 }
 
 .block-title {
-  font-size: 1.15rem;
+  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
   font-weight: 700;
   color: white;
   letter-spacing: 0.08em;
@@ -164,14 +142,14 @@ onMounted(() => {
 }
 
 .block-subtitle {
-  font-size: 0.9rem;
+  font-size: clamp(0.8rem, 1.2vw, 0.9rem);
   font-weight: 600;
   color: var(--color-accent-magenta);
   margin-bottom: 0.5rem;
 }
 
 .block-desc {
-  font-size: 0.85rem;
+  font-size: clamp(0.75rem, 1.1vw, 0.85rem);
   color: var(--color-text-light);
   line-height: 1.6;
 }
@@ -189,11 +167,11 @@ onMounted(() => {
   margin-bottom: 0.3rem;
 }
 .bar-label {
-  font-size: 0.8rem;
+  font-size: clamp(0.7rem, 1.1vw, 0.8rem);
   color: var(--color-text-light);
 }
 .bar-value {
-  font-size: 0.8rem;
+  font-size: clamp(0.7rem, 1.1vw, 0.8rem);
   font-weight: 600;
   color: white;
 }
@@ -213,8 +191,8 @@ onMounted(() => {
   transition: width 1.2s ease;
   transition-delay: var(--bar-delay, 0s);
 }
-.bar-fill--animated {
-  width: var(--target-width);
+.bar-fill-bar {
+  /* Animé via main.scss : #observatoire.swiper-slide-active */
 }
 
 .bar-source {
@@ -224,13 +202,16 @@ onMounted(() => {
   font-style: italic;
 }
 
-.reveal-item {
+/* Parallax d'entrée */
+.parallax-title {
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.7s ease;
+  transform: translateY(60px);
+  transition: opacity 0.9s ease, transform 1s ease;
 }
-.section-visible .reveal-item {
-  opacity: 1;
-  transform: translateY(0);
+.parallax-hero {
+  opacity: 0;
+  transform: translateY(140px);
+  transition: opacity 0.9s ease 0.1s, transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
 }
+/* Activation via main.scss : #observatoire.swiper-slide-active */
 </style>

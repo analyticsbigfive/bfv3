@@ -12,11 +12,10 @@ defineProps<{
 
 <style scoped lang="scss">
 .section-title {
-font-size: 65px;
-  font-weight: 400;
+  font-size: clamp(1.75rem, 5vw, 65px);
+  font-weight: 200;
   color: white;
-  margin-bottom: 2rem;
+  margin-bottom: clamp(1rem, 2vw, 2rem);
   text-transform: uppercase;
-  font-weight:200;
 }
 </style>

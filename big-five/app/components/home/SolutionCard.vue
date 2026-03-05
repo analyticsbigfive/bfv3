@@ -57,7 +57,7 @@ defineProps<{
 }
 
 .card-title {
-  font-size: 0.95rem;
+  font-size: clamp(0.8rem, 1.3vw, 0.95rem);
   font-weight: 700;
   color: white;
   margin-bottom: 0.5rem;
@@ -66,7 +66,7 @@ defineProps<{
 }
 
 .card-desc {
-  font-size: 0.8rem;
+  font-size: clamp(0.7rem, 1.1vw, 0.8rem);
   color: var(--color-text-light);
   line-height: 1.5;
 }

@@ -1,28 +1,32 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 
 const { agency } = useContent()
 
-const sectionRef = ref<HTMLElement | null>(null)
-const isVisible = ref(false)
+const imageColRef = ref<HTMLElement | null>(null)
+const tiltStyle = ref({})
 
-onMounted(() => {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) isVisible.value = true
-      })
-    },
-    { threshold: 0.2 }
-  )
-  if (sectionRef.value) observer.observe(sectionRef.value)
-})
+function onMouseMove(e: MouseEvent) {
+  if (!imageColRef.value) return
+  const rect = imageColRef.value.getBoundingClientRect()
+  const x = (e.clientX - rect.left) / rect.width  // 0 → 1
+  const y = (e.clientY - rect.top) / rect.height   // 0 → 1
+  const rotateY = (x - 0.5) * 16  // -8° → +8°
+  const rotateX = (0.5 - y) * 12  // -6° → +6°
+  tiltStyle.value = {
+    transform: `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`,
+  }
+}
+
+function onMouseLeave() {
+  tiltStyle.value = {
+    transform: 'perspective(600px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
+  }
+}
 </script>
 
 <template>
   <section
-    ref="sectionRef"
-    id="agence"
     class="agency-section relative h-full overflow-hidden"
   >
     <!-- Decorative circle -->
@@ -31,7 +35,6 @@ onMounted(() => {
     <div class="max-w-[1440px] mx-auto px-6 lg:px-12 h-full flex items-center">
       <div
         class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center w-full"
-        :class="{ 'section-visible': isVisible }"
       >
         <!-- Left content -->
         <div class="content-col">
@@ -60,12 +63,19 @@ onMounted(() => {
         </div>
 
         <!-- Right image -->
-        <div class="image-col relative">
+        <div
+          ref="imageColRef"
+          class="image-col relative"
+          :style="tiltStyle"
+          @mousemove="onMouseMove"
+          @mouseleave="onMouseLeave"
+        >
+          <div class="image-col-bg" aria-hidden="true" />
           <div class="agency-image">
             <img
               :src="agency.image.src"
               :alt="agency.image.alt"
-              class="w-full h-full object-cover"
+              class="w-full h-full object-cover agency-img"
               loading="lazy"
             />
           </div>
@@ -97,32 +107,43 @@ onMounted(() => {
   50% { transform: scale(1.1); opacity: 0.8; }
 }
 
+/* --- Entrée parallaxe : chaque élément part d'un Y différent --- */
+
 .content-col {
   position: relative;
   z-index: 1;
   opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.8s ease;
-}
-.section-visible .content-col {
-  opacity: 1;
-  transform: translateY(0);
+  transform: translateY(60px);
+  transition: opacity 0.9s ease, transform 1s ease;
 }
 
+/* Image col : parallax d'entrée + tilt 3D au hover */
 .image-col {
   position: relative;
   z-index: 1;
   opacity: 0;
-  transform: translateX(40px);
-  transition: all 0.8s ease 0.3s;
-}
-.section-visible .image-col {
-  opacity: 1;
-  transform: translateX(0);
+  transform: perspective(600px) translateY(120px);
+  transform-style: preserve-3d;
+  transition: opacity 0.9s ease 0.1s, transform 0.15s ease-out;
+  cursor: pointer;
 }
 
+.image-col-bg {
+  opacity: 0;
+  transform: translateZ(-20px) scale(1.04);
+  transition: opacity 0.9s ease 0.05s;
+}
+
+.agency-img {
+  opacity: 0;
+  transform: translateZ(30px);
+  transition: opacity 0.9s ease 0.15s;
+}
+
+/* L'activation est gérée dans main.scss via .swiper-slide-active #agence */
+
 .subtitle {
-  font-size: clamp(1.15rem, 2.5vw, 1.6rem);
+  font-size: clamp(1rem, 2.5vw, 1.6rem);
   font-weight: 600;
   color: white;
   line-height: 1.3;
@@ -130,13 +151,10 @@ onMounted(() => {
 }
 
 .description {
-  font-size: 0.9rem;
+  font-size: clamp(0.8rem, 1.2vw, 0.95rem);
   color: var(--color-text-light);
   line-height: 1.7;
   max-width: 500px;
-}
-
-.agency-image {
 }
 
 @media (max-height: 700px) {

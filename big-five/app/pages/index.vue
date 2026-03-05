@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Mousewheel, Pagination, Keyboard, HashNavigation } from 'swiper/modules'
-import type { SwiperClass } from 'swiper/vue'
+import { Pagination, Keyboard, HashNavigation } from 'swiper/modules'
+import type SwiperType from 'swiper'
 import 'swiper/css'
 import 'swiper/css/pagination'
 
@@ -37,15 +37,94 @@ useSeoMeta({
   twitterImage: ogImageUrl,
 })
 
-const modules = [Mousewheel, Pagination, Keyboard, HashNavigation]
+const modules = [Pagination, Keyboard, HashNavigation]
 
-function onSwiper(swiper: SwiperClass) {
+let swiperInstance: SwiperType | null = null
+let isTransitioning = false
+let wheelAccumulator = 0
+let wheelTimer: ReturnType<typeof setTimeout> | null = null
+
+const WHEEL_THRESHOLD = 80 // Seuil cumulé avant de déclencher un changement de slide
+const WHEEL_DEBOUNCE = 120 // Délai (ms) pour réinitialiser l'accumulateur
+
+function handleWheel(e: WheelEvent) {
+  if (!swiperInstance || isTransitioning) {
+    e.preventDefault()
+    return
+  }
+
+  // Vérifier si on est sur un slide scrollable avec du contenu défilable
+  const activeSlideEl = swiperInstance.slides[swiperInstance.activeIndex] as HTMLElement
+  const scrollableContent = activeSlideEl?.querySelector('.slide-scrollable') as HTMLElement
+  if (scrollableContent) {
+    const { scrollTop, scrollHeight, clientHeight } = scrollableContent
+    const atTop = scrollTop <= 0
+    const atBottom = scrollTop + clientHeight >= scrollHeight - 2
+
+    // Laisser le scroll natif si le contenu n'est pas aux extrémités
+    if ((e.deltaY < 0 && !atTop) || (e.deltaY > 0 && !atBottom)) {
+      return
+    }
+  }
+
+  e.preventDefault()
+
+  // Accumuler le delta du wheel
+  wheelAccumulator += e.deltaY
+
+  // Réinitialiser l'accumulateur après un moment d'inactivité (debounce)
+  if (wheelTimer) clearTimeout(wheelTimer)
+  wheelTimer = setTimeout(() => {
+    wheelAccumulator = 0
+  }, WHEEL_DEBOUNCE)
+
+  // Déclencher le changement de slide seulement si le seuil est atteint
+  if (Math.abs(wheelAccumulator) >= WHEEL_THRESHOLD) {
+    const direction = wheelAccumulator > 0 ? 1 : -1
+    wheelAccumulator = 0
+
+    if (direction > 0 && swiperInstance.activeIndex < swiperInstance.slides.length - 1) {
+      isTransitioning = true
+      swiperInstance.slideNext()
+    } else if (direction < 0 && swiperInstance.activeIndex > 0) {
+      isTransitioning = true
+      swiperInstance.slidePrev()
+    }
+  }
+}
+
+function onSwiper(swiper: SwiperType) {
+  swiperInstance = swiper
   registerSwiper((index: number) => swiper.slideTo(index))
 }
 
-function onSlideChange(swiper: SwiperClass) {
+function onSlideChange(swiper: SwiperType) {
   setActiveIndex(swiper.activeIndex)
 }
+
+function onTransitionEnd() {
+  // Délai supplémentaire pour éviter les changements en cascade
+  setTimeout(() => {
+    isTransitioning = false
+    wheelAccumulator = 0
+  }, 200)
+}
+
+onMounted(() => {
+  const wrapper = document.querySelector('.fullpage-swiper') as HTMLElement
+  if (wrapper) {
+    wrapper.addEventListener('wheel', handleWheel, { passive: false })
+  }
+})
+
+onUnmounted(() => {
+  const wrapper = document.querySelector('.fullpage-swiper') as HTMLElement
+  if (wrapper) {
+    wrapper.removeEventListener('wheel', handleWheel)
+  }
+  if (wheelTimer) clearTimeout(wheelTimer)
+  swiperInstance = null
+})
 </script>
 
 <template>
@@ -55,44 +134,46 @@ function onSlideChange(swiper: SwiperClass) {
       direction="vertical"
       :slides-per-view="1"
       :speed="900"
-      :mousewheel="{ sensitivity: 1, thresholdDelta: 40 }"
       :keyboard="{ enabled: true }"
       :pagination="{ clickable: true, el: '.fp-pagination' }"
       :hash-navigation="{ watchState: true }"
+      :allow-touch-move="true"
       class="fullpage-swiper"
       @swiper="onSwiper"
       @slideChange="onSlideChange"
+      @slideChangeTransitionEnd="onTransitionEnd"
     >
       <!-- Slide 1: Hero -->
       <SwiperSlide data-hash="hero">
         <div class="slide-content">
+          <LayoutAppHeader />
           <HomeHeroSlider />
         </div>
       </SwiperSlide>
 
       <!-- Slide 2: L'Agence -->
-      <SwiperSlide data-hash="agence">
+      <SwiperSlide id="agence" data-hash="agence">
         <div class="slide-content slide-gradient">
           <HomeAgencySection />
         </div>
       </SwiperSlide>
 
       <!-- Slide 3: Équipe -->
-      <SwiperSlide data-hash="equipe">
+      <SwiperSlide id="equipe" data-hash="equipe">
         <div class="slide-content slide-gradient">
           <HomeTeamCarousel />
         </div>
       </SwiperSlide>
 
       <!-- Slide 4: Solutions -->
-      <SwiperSlide data-hash="solutions">
+      <SwiperSlide id="solutions" data-hash="solutions">
         <div class="slide-content slide-gradient slide-scrollable">
           <HomeSolutionsGrid />
         </div>
       </SwiperSlide>
 
       <!-- Slide 5: Observations + Contact -->
-      <SwiperSlide data-hash="observatoire">
+      <SwiperSlide id="observatoire" data-hash="observatoire">
         <div class="slide-content slide-gradient slide-scrollable">
           <HomeInsightsSection />
           <LayoutAppFooter />
@@ -131,10 +212,6 @@ function onSlideChange(swiper: SwiperClass) {
   flex-direction: column;
   justify-content: center;
   position: relative;
-}
-
-.slide-gradient {
-  //background: var(--gradient-hero);
 }
 
 .slide-footer {
