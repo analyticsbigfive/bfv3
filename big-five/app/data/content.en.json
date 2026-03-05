@@ -1,12 +1,12 @@
 {
   "meta": {
     "siteUrl": "https://bigfiveabidjan.com",
-    "title": "Big Five Solutions — Strategic & Digital Marketing Consulting",
-    "description": "Big Five Solutions: strategic marketing, digital marketing and custom digital solutions consulting agency. Abidjan, Paris, Cape Town. Transforming performance into a lasting footprint.",
-    "ogTitle": "Big Five Solutions",
+    "title": "Big Five — Strategic & Digital Marketing Consulting",
+    "description": "Big Five: strategic marketing, digital marketing and custom digital solutions consulting agency. Abidjan, Paris, Cape Town. Transforming performance into a lasting footprint.",
+    "ogTitle": "Big Five",
     "ogDescription": "Strategic marketing, digital marketing and custom digital solutions consulting agency based in Abidjan.",
     "ogImage": "/images/og-image.png",
-    "ogSiteName": "Big Five Solutions",
+    "ogSiteName": "Big Five",
     "locale": "en_US",
     "twitterCard": "summary_large_image"
   },
@@ -216,13 +216,10 @@
     "contactLabel": "Your professional email",
     "email": "contacts@bigfiveabidjan.com",
     "socialLabel": "Follow us here too:",
-    "copyright": "Big Five Solutions. All rights reserved.",
+    "copyright": "Big Five. All rights reserved.",
     "socials": [
-      { "name": "facebook", "label": "Facebook", "url": "#" },
-      { "name": "twitter", "label": "X / Twitter", "url": "#" },
-      { "name": "instagram", "label": "Instagram", "url": "#" },
-      { "name": "youtube", "label": "YouTube", "url": "#" },
-      { "name": "linkedin", "label": "LinkedIn", "url": "#" }
+      { "name": "facebook", "label": "Facebook", "url": "https://www.facebook.com/agencebigfive/" },
+      { "name": "linkedin", "label": "LinkedIn", "url": "https://www.linkedin.com/company/big-five-solutions/posts/?feedView=all" }
     ]
   }
 }

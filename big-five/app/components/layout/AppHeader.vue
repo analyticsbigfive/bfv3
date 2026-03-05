@@ -73,10 +73,10 @@ function navigateTo(index: number) {
       <a
         href="#"
         class="logo-wrapper flex-shrink-0"
-        aria-label="Big Five Solutions"
+        aria-label="Big Five"
         @click.prevent="navigateTo(0)"
       >
-        <img src="/images/logo.svg" alt="Big Five Solutions Logo" class="logo" />
+        <img src="/images/logo.svg" alt="Big Five Logo" class="logo" />
       </a>
 
       <!-- Desktop nav -->
