@@ -7,7 +7,7 @@ const { footer } = useContent()
 <template>
   <footer class="footer" id="contact">
     <div class="max-w-[1440px] mx-auto px-6 lg:px-12 py-12">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 items-center">
+      <div class="flex flex-col md:flex-row gap-10 items-center justify-between">
         <!-- Logo -->
         <div class="flex flex-col items-center md:items-start">
           <svg class="footer-logo" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">

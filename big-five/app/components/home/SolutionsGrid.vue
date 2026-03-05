@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Plus, X } from 'lucide-vue-next'
 
 const { solutions } = useContent()
 
@@ -18,43 +17,50 @@ function toggleSolution(idx: number) {
     <div class="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
       <UiSectionTitle :title="solutions.sectionTitle" class="parallax-title" />
 
-      <!-- Circles grid -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mt-8 mb-10">
+      <!-- Circles -->
+      <div class="circles-wrap">
         <div
           v-for="(item, idx) in solutions.items"
           :key="item.highlight"
-          class="solution-circle parallax-circle"
+          class="solution-item parallax-circle"
           :style="{ '--circle-delay': idx }"
         >
+          <!-- bg-section circle -->
           <div
-            class="circle-inner"
-            :class="{ 'circle-inner--active': selectedIndex === idx }"
+            class="bg-section"
+            :class="{ 'bg-section--active': selectedIndex === idx }"
             @click="toggleSolution(idx)"
           >
             <span class="circle-label font-body">{{ item.label }}</span>
             <span class="circle-highlight font-heading">{{ item.highlight }}</span>
           </div>
+
+          <!-- btn-section button -->
           <button
-            class="circle-plus"
-            :class="{ 'circle-plus--active': selectedIndex === idx }"
+            class="btn-section"
+            :class="{ 'btn-section--active': selectedIndex === idx }"
             :aria-label="`${solutions.learnMoreLabel} ${item.highlight}`"
             @click="toggleSolution(idx)"
           >
-            <X v-if="selectedIndex === idx" :size="14" />
-            <Plus v-else :size="16" />
+            <div class="btn-section__circle"></div>
+            <div class="btn-section__icon" :class="{ 'btn-section__icon--close': selectedIndex === idx }"></div>
           </button>
         </div>
       </div>
 
       <!-- Solution detail card — shown on circle click -->
+      <!-- Overlay centré -->
       <Transition name="card-reveal">
-        <div v-if="selectedIndex !== null" :key="selectedIndex" class="solution-detail-wrapper">
-          <HomeSolutionCard
-            :title="solutions.items[selectedIndex].title"
-            :highlight="solutions.items[selectedIndex].highlight"
-            :description="solutions.items[selectedIndex].description"
-            :image="solutions.items[selectedIndex].image"
-          />
+        <div v-if="selectedIndex !== null" :key="selectedIndex" class="solution-overlay" @click.self="selectedIndex = null">
+          <div class="solution-detail-wrapper">
+            <button class="overlay-close" aria-label="Fermer" @click="selectedIndex = null">✕</button>
+            <HomeSolutionCard
+              :title="solutions.items[selectedIndex].title"
+              :highlight="solutions.items[selectedIndex].highlight"
+              :description="solutions.items[selectedIndex].description"
+              :image="solutions.items[selectedIndex].image"
+            />
+          </div>
         </div>
       </Transition>
     </div>
@@ -62,63 +68,162 @@ function toggleSolution(idx: number) {
 </template>
 
 <style scoped lang="scss">
-.solution-circle {
+$btn-icon-color: #d7ccff;
+$btn-gradient-start: #29358b;
+$btn-gradient-end: #80368d;
+
+.circles-wrap {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 2.5rem;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.solution-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
+  flex: 0 0 296px;
+  max-width: 296px;
 }
 
-.circle-inner {
+/* === bg-section (cercle principal) === */
+.bg-section {
+  width: 296px;
+  height: 296px;
+  border-radius: 50%;
+  background-color: #160e44;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  background: #0d0b2e;
   text-align: center;
-  transition: all 0.3s ease;
   cursor: pointer;
-}
-.circle-inner:hover,
-.circle-inner--active {
-  transform: scale(1.05);
-  box-shadow: 0 8px 40px rgba(123, 63, 160, 0.4);
-}
-.circle-inner--active {
-  background: linear-gradient(135deg, #2d1b69, #7b3fa0);
-  box-shadow: 0 8px 40px rgba(194, 58, 142, 0.5);
+  transition: transform 0.3s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    padding: 2px;
+    background: linear-gradient(to right, #29358b, #80368d);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    transition: opacity 0.3s;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &--active {
+    transform: scale(1.05);
+
+    &::before {
+      padding: 3px;
+      background: linear-gradient(to right, #80368d, #c23a8e);
+    }
+  }
 }
 
 .circle-label {
   font-size: clamp(0.65rem, 1.2vw, 0.8rem);
   color: var(--color-text-light);
+  position: relative;
+  z-index: 1;
 }
 .circle-highlight {
   font-size: clamp(0.8rem, 1.4vw, 1rem);
   font-weight: 700;
   color: white;
+  position: relative;
+  z-index: 1;
 }
 
-.circle-plus {
+/* === btn-section (bouton +) === */
+.btn-section {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(to bottom, $btn-gradient-start, $btn-gradient-end);
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(255, 255, 255, 0.4);
-  background: transparent;
-  color: white;
   cursor: pointer;
-  transition: all 0.3s;
-}
-.circle-plus:hover,
-.circle-plus--active {
-  background: var(--color-accent-magenta);
-  border-color: transparent;
+  border: none;
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: scale(1.15);
+  }
+
+  &__circle {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1.5px solid $btn-icon-color;
+  }
+
+  &__icon {
+    position: relative;
+    width: 14px;
+    height: 14px;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      background-color: $btn-icon-color;
+      border-radius: 2px;
+      transition: transform 0.3s;
+    }
+
+    // Barre horizontale
+    &::before {
+      width: 100%;
+      height: 2px;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+
+    // Barre verticale
+    &::after {
+      width: 2px;
+      height: 100%;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+    }
+
+    // Rotation en X quand actif
+    &--close {
+      &::before {
+        transform: translateY(-50%) rotate(45deg);
+      }
+      &::after {
+        transform: translateX(-50%) rotate(45deg);
+      }
+    }
+  }
+
+  &--active {
+    background: linear-gradient(to bottom, #80368d, #c23a8e);
+  }
 }
 
 /* Card reveal transition */
@@ -137,9 +242,44 @@ function toggleSolution(idx: number) {
   transform: translateY(-10px) scale(0.97);
 }
 
+.solution-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 6, 30, 0.7);
+  padding: 1.5rem;
+}
+
 .solution-detail-wrapper {
-  max-width: 700px;
-  margin: 0 auto;
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+}
+
+.overlay-close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  z-index: 10;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-accent-magenta);
+  color: white;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 /* Parallax d'entrée */
@@ -157,15 +297,36 @@ function toggleSolution(idx: number) {
 /* Activation via main.scss : #solutions.swiper-slide-active */
 
 @media (max-width: 768px) {
-  .circle-inner {
-    width: 100px;
-    height: 100px;
+  .circles-wrap {
+    max-width: 100%;
+    gap: 0.75rem;
+    overflow-x: auto;
+  }
+  .solution-item {
+    flex: 0 0 140px;
+    max-width: 140px;
+  }
+  .bg-section {
+    width: 140px;
+    height: 140px;
   }
   .circle-label {
     font-size: 0.6rem;
   }
   .circle-highlight {
     font-size: 0.75rem;
+  }
+  .btn-section {
+    width: 28px;
+    height: 28px;
+  }
+  .btn-section__circle {
+    width: 22px;
+    height: 22px;
+  }
+  .btn-section__icon {
+    width: 10px;
+    height: 10px;
   }
 }
 </style>

@@ -41,7 +41,8 @@ function animateCounter() {
 </script>
 
 <template>
-  <div ref="counterEl" class="counter-up">
+  <div class="imanotguoi">
+<div ref="counterEl" class="counter-up">
     <span class="counter-value font-heading">
       {{ prefix }}{{ display }}{{ suffix }}
     </span>
@@ -49,6 +50,8 @@ function animateCounter() {
       <slot />
     </span>
   </div>
+  </div>
+  
 </template>
 
 <style scoped lang="scss">

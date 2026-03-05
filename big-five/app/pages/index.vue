@@ -8,12 +8,13 @@ import 'swiper/css/pagination'
 
 const { meta } = useContent()
 const { registerSwiper, setActiveIndex } = useNavigation()
+const { locale } = useI18n()
 
 const ogImageUrl = `${meta.siteUrl}${meta.ogImage}`
 
 useHead({
   title: meta.title,
-  htmlAttrs: { lang: 'fr' },
+  htmlAttrs: { lang: locale.value },
 })
 
 useSeoMeta({

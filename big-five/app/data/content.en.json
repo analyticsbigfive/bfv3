@@ -1,0 +1,181 @@
+{
+  "meta": {
+    "siteUrl": "https://bigfiveabidjan.com",
+    "title": "Big Five Solutions — Strategic & Digital Marketing Consulting",
+    "description": "Big Five Solutions: strategic marketing, digital marketing and custom digital solutions consulting agency. Abidjan, Paris, Cape Town. Transforming performance into a lasting footprint.",
+    "ogTitle": "Big Five Solutions",
+    "ogDescription": "Strategic marketing, digital marketing and custom digital solutions consulting agency based in Abidjan.",
+    "ogImage": "/images/og-image.png",
+    "ogSiteName": "Big Five Solutions",
+    "locale": "en_US",
+    "twitterCard": "summary_large_image"
+  },
+
+  "header": {
+    "logoTagline": "DIGITAL CONSULTING & STRATEGY",
+    "nav": [
+      { "label": "AGENCY", "slideIndex": 1 },
+      { "label": "SOLUTIONS", "slideIndex": 3 },
+      { "label": "INSIGHTS", "slideIndex": 4 }
+    ],
+    "contactButton": "CONTACT US",
+    "searchLabel": "Search",
+    "lang": "EN",
+    "souslelogo": "Consulting and strategy agency"
+  },
+
+  "hero": {
+    "lines": ["TRANSFORMING", "PERFORMANCE", "INTO A LASTING", "FOOTPRINT"],
+    "services": [
+      "Strategic Marketing",
+      "Digital Marketing",
+      "Custom Digital Solutions"
+    ],
+    "slides": [
+      {
+        "alt": "Afrofuturism",
+        "bg": "linear-gradient(135deg, #1a0a3e 0%, #2d1b69 30%, #7b3fa0 60%, #c23a8e 100%)",
+        "image": "/images/slides/00.webp"
+      },
+      {
+        "alt": "African heritage",
+        "bg": "linear-gradient(135deg, #2d1b69 0%, #7b3fa0 40%, #c23a8e 80%, #1a0a3e 100%)",
+        "image": "/images/slides/01.webp"
+      },
+      {
+        "alt": "Urban modernity",
+        "bg": "linear-gradient(135deg, #1a0a3e 0%, #4a2d8a 50%, #7b3fa0 100%)",
+        "image": "/images/slides/03.webp"
+      }
+    ]
+  },
+
+  "agency": {
+    "sectionTitle": "THE AGENCY",
+    "subtitleLine1": "Over 15 years of experience.",
+    "subtitleLine2": "A new vision of performance",
+    "description": "Born in the field, we grew up alongside our clients. Our observation is clear: the market no longer needs mere executors, but skills reinforcement.",
+    "counters": [
+      { "target": 350, "prefix": "+", "suffix": "", "label": "PROJECTS DELIVERED" },
+      { "target": 17, "prefix": "", "suffix": "", "label": "COUNTRIES COVERED" }
+    ],
+    "image": {
+      "src": "/images/sans-titre9-grand.webp",
+      "alt": "Young man with smartphone"
+    }
+  },
+
+  "team": {
+    "sectionTitle": "TEAM",
+    "members": [
+      {
+        "name": "Jérémie de Clercq",
+        "role": "Founder / Managing Director",
+        "linkedin": "https://fr.linkedin.com/in/j%C3%A9r%C3%A9mie-de-clercq-45536248"
+      },
+      {
+        "name": "Bertrand Jame",
+        "role": "Founder / Managing Director",
+        "linkedin": "https://za.linkedin.com/in/bertrand-jame-90680213"
+      },
+      {
+        "name": "Yannick Boka",
+        "role": "Marketing & Business Development Director",
+        "linkedin": "https://fr.linkedin.com/in/yannick-boka-bigfive"
+      },
+      {
+        "name": "KOUAME Ulrich Kouadio",
+        "role": "Lead Fullstack Developer",
+        "linkedin": "https://ci.linkedin.com/in/ulrichkouame/en"
+      },
+      {
+        "name": "Cossi CODJIA",
+        "role": "Marketing Project Manager",
+        "linkedin": "https://www.linkedin.com/in/cossicodjia"
+      },
+      {
+        "name": "Jean-Luc Houedanou",
+        "role": "Digital Solutions Director",
+        "linkedin": "https://ci.linkedin.com/in/jlhouedanou"
+      }
+    ],
+    "prevLabel": "Previous",
+    "nextLabel": "Next"
+  },
+
+  "solutions": {
+    "sectionTitle": "SOLUTIONS",
+    "learnMoreLabel": "Learn more about",
+    "items": [
+      {
+        "label": "Consulting &",
+        "highlight": "Strategy",
+        "title": "Consulting & Strategy",
+        "description": "Positioning audits and roadmaps to align your brand image with your business reality.",
+        "image": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80&auto=format"
+      },
+      {
+        "label": "Monitoring &",
+        "highlight": "Intelligence",
+        "title": "Monitoring & Intelligence",
+        "description": "Turn media noise into actionable weak signals. Understand before others do.",
+        "image": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&q=80&auto=format"
+      },
+      {
+        "label": "Big Five",
+        "highlight": "Academy",
+        "title": "Big Five Academy",
+        "description": "Capacity building and skills transfer for the autonomy of your teams.",
+        "image": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80&auto=format"
+      },
+      {
+        "label": "Digital",
+        "highlight": "Solutions",
+        "title": "Digital Solutions",
+        "description": "Custom development and applied AI. Technology through evidence.",
+        "image": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80&auto=format"
+      }
+    ]
+  },
+
+  "insights": {
+    "sectionTitle": "INSIGHTS",
+    "hero": {
+      "badge": "Big Five Insights",
+      "subtitle": "The Social Media Trends Observatory",
+      "image": "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=1200&q=80&auto=format",
+      "imageAlt": "African tree at dusk"
+    },
+    "blocks": [
+      {
+        "title": "DIGITAL SOVEREIGNTY",
+        "subtitle": "Why data is the next battle for West African SMEs.",
+        "description": "Analysis of new regulations and growth opportunities for the private sector in the WAEMU zone.",
+        "cta": "Read the analysis"
+      },
+      {
+        "title": "DIGITAL BAROMETER 2026",
+        "bars": [
+          { "label": "Cloud Adoption", "value": 45, "suffix": "%" },
+          { "label": "Mobile Banking", "value": 72, "suffix": "%" },
+          { "label": "Cybersecurity", "value": 28, "suffix": "%" }
+        ],
+        "source": "Big Five Watch - Q1 2026"
+      }
+    ]
+  },
+
+  "footer": {
+    "contactLabel": "Your professional email",
+    "email": "contacts@bigfiveabidjan.com",
+    "socialLabel": "Follow us here too:",
+    "copyright": "Big Five Solutions. All rights reserved.",
+    "socials": [
+      { "name": "facebook", "label": "Facebook", "url": "#" },
+      { "name": "twitter", "label": "X / Twitter", "url": "#" },
+      { "name": "instagram", "label": "Instagram", "url": "#" },
+      { "name": "youtube", "label": "YouTube", "url": "#" },
+      { "name": "linkedin", "label": "LinkedIn", "url": "#" }
+    ]
+  }
+}

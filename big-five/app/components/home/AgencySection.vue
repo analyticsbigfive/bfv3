@@ -6,19 +6,27 @@ const { agency } = useContent()
 const imageColRef = ref<HTMLElement | null>(null)
 const tiltStyle = ref({})
 
+let tiltRaf: number | null = null
+
 function onMouseMove(e: MouseEvent) {
   if (!imageColRef.value) return
-  const rect = imageColRef.value.getBoundingClientRect()
-  const x = (e.clientX - rect.left) / rect.width  // 0 → 1
-  const y = (e.clientY - rect.top) / rect.height   // 0 → 1
-  const rotateY = (x - 0.5) * 16  // -8° → +8°
-  const rotateX = (0.5 - y) * 12  // -6° → +6°
-  tiltStyle.value = {
-    transform: `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`,
-  }
+  if (tiltRaf) return // skip if a frame is already scheduled
+  tiltRaf = requestAnimationFrame(() => {
+    tiltRaf = null
+    if (!imageColRef.value) return
+    const rect = imageColRef.value.getBoundingClientRect()
+    const x = (e.clientX - rect.left) / rect.width
+    const y = (e.clientY - rect.top) / rect.height
+    const rotateY = (x - 0.5) * 16
+    const rotateX = (0.5 - y) * 12
+    tiltStyle.value = {
+      transform: `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`,
+    }
+  })
 }
 
 function onMouseLeave() {
+  if (tiltRaf) { cancelAnimationFrame(tiltRaf); tiltRaf = null }
   tiltStyle.value = {
     transform: 'perspective(600px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
   }
@@ -34,7 +42,7 @@ function onMouseLeave() {
 
     <div class="max-w-[1440px] mx-auto px-6 lg:px-12 h-full flex items-center">
       <div
-        class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center w-full"
+        class="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center w-full"
       >
         <!-- Left content -->
         <div class="content-col">
@@ -99,17 +107,14 @@ function onMouseLeave() {
   border-radius: 50%;
   background: radial-gradient(circle, rgba(194, 58, 142, 0.25) 0%, transparent 70%);
   z-index: 0;
-  animation: pulse 8s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 0.6; }
-  50% { transform: scale(1.1); opacity: 0.8; }
+  opacity: 0.7;
 }
 
 /* --- Entrée parallaxe : chaque élément part d'un Y différent --- */
 
 .content-col {
+  flex: 1;
+  min-width: 0;
   position: relative;
   z-index: 1;
   opacity: 0;
@@ -117,14 +122,16 @@ function onMouseLeave() {
   transition: opacity 0.9s ease, transform 1s ease;
 }
 
-/* Image col : parallax d'entrée + tilt 3D au hover */
+/* Image col : tilt 3D au hover, entrée via opacity uniquement */
 .image-col {
+  flex: 1;
+  min-width: 0;
   position: relative;
   z-index: 1;
   opacity: 0;
-  transform: perspective(600px) translateY(120px);
   transform-style: preserve-3d;
   transition: opacity 0.9s ease 0.1s, transform 0.15s ease-out;
+  will-change: transform;
   cursor: pointer;
 }
 

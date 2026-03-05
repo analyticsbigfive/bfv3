@@ -29,7 +29,7 @@ const { insights } = useContent()
       </div>
 
       <!-- Two columns -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+      <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
         <!-- Block 1: Souveraineté Numérique -->
         <div class="insight-block reveal-item" style="--block-delay: 0">
           <h4 class="block-title font-heading">{{ insights.blocks[0].title }}</h4>
@@ -127,6 +127,8 @@ const { insights } = useContent()
 }
 
 .insight-block {
+  flex: 1;
+  min-width: 0;
   opacity: 0;
   transform: translateY(100px);
   transition: opacity 0.9s ease, transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
