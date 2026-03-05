@@ -28,14 +28,14 @@ defineProps<{
 
 <style scoped lang="scss">
 .solution-card-compact {
-  display: flex;
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-  background: linear-gradient(135deg, #1a1054 0%, #2d1a6e 30%, #7b2d8e 70%, #a0369a 100%);
-  min-height: 320px;
-  max-width: 780px;
-  width: 100%;
+      display: flex;
+    border-radius:80px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(135deg, #1a1054 0%, #2d1a6e 30%, #7b2d8e 70%, #a0369a 100%);
+    min-height: 662px;
+    max-width: 1174px;
+    width: 100vw;
 }
 
 .card-image {
@@ -50,7 +50,7 @@ defineProps<{
   height: 100%;
   object-fit: cover;
   border-radius: 20px;
-  max-height: 280px;
+  max-height: 100vh;
 }
 
 .card-content {

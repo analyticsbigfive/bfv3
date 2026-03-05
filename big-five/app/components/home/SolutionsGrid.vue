@@ -302,29 +302,33 @@ $btn-gradient-end: #80368d;
 .solution-detail-wrapper {
   position: relative;
   width: 100%;
-  max-width: 780px;
+  max-width:76vw;
+  display: flex;
+  justify-content: center;
 }
 
 .overlay-close {
   position: absolute;
-  top: -14px;
-  right: -14px;
+  top: 12px;
+  right: 12px;
   z-index: 10;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   border: none;
-  background: var(--color-accent-magenta);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
   color: white;
-  font-size: 0.85rem;
+  font-size: 1rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.2s;
+  transition: transform 0.2s, background 0.2s;
 
   &:hover {
     transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.25);
   }
 }
 
