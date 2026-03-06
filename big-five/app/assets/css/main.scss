@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 :root {
+  /* Viewport mobile — fallback pour Safari/Chrome */
+  --app-vh: 100vh;
+  --full-vh: var(--app-vh, 100vh);
+
   /* Couleurs principales */
   --color-primary-deep: #1a0a3e;
   --color-primary: #2d1b69;
@@ -263,4 +267,212 @@ right:45px;
 .solution-item{
   position:relative;
 
+}
+
+/* ============================================================
+   MOBILE (≤ 768px) — Intégration des maquettes designer
+   ============================================================ */
+@media (max-width: 768px) {
+  .logo{
+    width:75px !important;
+  }
+  .lepiutan{
+    padding:1em !important;
+  }
+  .hero{
+    .slide{
+        &:nth-of-type(1){
+          .absolute{
+              background-position:0px -9px !important;
+          }
+        }
+        &:nth-of-type(2){
+          .absolute{
+
+          }
+        }
+        &:nth-of-type(3){
+          .absolute{
+
+          }
+        }
+    }
+  }
+  /* --- Hero : contenu ancré en bas --- */
+  #metamorphosis {
+    justify-content: flex-end !important;
+    padding-bottom: 90px !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+
+    span {
+      font-size: 36px !important;
+      letter-spacing: -0.5px !important;
+    }
+
+    li {
+      font-size: 14px !important;
+      padding: 0.35em 0.9em !important;
+    }
+  }
+
+  .hero-title {
+    max-width: 100% !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* --- Pagination latérale : discrète sur mobile --- */
+  .fp-pagination {
+    right: 10px !important;
+  }
+  .fp-pagination .swiper-pagination-bullet {
+    width: 7px !important;
+    height: 7px !important;
+  }
+
+  /* --- Agency : empilé sur mobile --- */
+  #agence {
+    .slide-content {
+      justify-content: flex-start !important;
+      padding-top: 80px;
+    }
+    .content-col {
+      width: 100%;
+      flex: 0 0 auto;
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+    .image-col {
+      flex: 1 1 auto;
+      width: 100%;
+      max-height: 40vh;
+      max-height: 40dvh;
+      justify-content: center;
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+    .agency-img {
+      opacity: 1 !important;
+      transition: none !important;
+    }
+    .agency-image {
+      max-height: 35vh;
+      max-height: 35dvh;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+    .agency-img {
+      max-height: 35vh;
+      max-height: 35dvh;
+      object-fit: cover;
+    }
+    .image-col-bg {
+      display: block;
+      position: absolute;
+      inset: 0;
+      opacity: 0.4;
+      z-index: -1;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    &::after {
+      display: block !important;
+      height: 6vh;
+      z-index: 1;
+    }
+    .deco-circle {
+      display: block;
+      width: 200px;
+      height: 200px;
+      top: auto;
+      bottom: 5%;
+      right: 5%;
+      opacity: 0.5;
+    }
+    .imanotguoi {
+      padding: 0.3rem;
+    }
+    .counter-up {
+      width: 120px;
+      height: 120px;
+    }
+    .counter-value {
+      font-size: 1.8rem;
+    }
+    .counter-label {
+      font-size: 0.6rem;
+    }
+  }
+
+  /* --- Insights : polices réduites sur mobile --- */
+  .block-title {
+    font-size: 20px !important;
+  }
+  .block-subtitle {
+    font-size: 12px !important;
+    margin-top: 1rem !important;
+  }
+  .block-desc {
+    font-size: 12px !important;
+    margin-top: 0.75rem !important;
+  }
+  .bar-label,
+  .bar-value {
+    font-size: 12px !important;
+    margin-top: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+  .insights-badge {
+    font-size: 2rem !important;
+  }
+  .insights-subtitle {
+    font-size: 0.9rem !important;
+  }
+  .insights-hero-content {
+    padding: 1.5rem !important;
+  }
+  .insights-bottom {
+    padding: 1.5rem !important;
+  }
+  .solutions-section{
+    display:flex;
+    flex-direction:column;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  .bar-track{
+    height:10px !important;
+  }
+  #gertafeule{
+    min-height:100dvh !important;
+    display:flex;
+    flex-direction:column !important;
+   justify-content: center !important;
+    align-items: center !important;
+  }
+
+  /* Footer visible sur mobile Safari */
+  #observatoire {
+    overflow: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  #observatoire > .slide-content {
+    height: auto !important;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  .insights-section {
+    min-height: auto !important;
+    flex-shrink: 0;
+  }
+  .insights-layout {
+    min-height: auto !important;
+  }
+  .footer {
+    flex-shrink: 0 !important;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
 }

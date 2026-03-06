@@ -193,6 +193,7 @@ onUnmounted(() => {
   position: relative;
   width: 100%;
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
 }
 
@@ -203,7 +204,15 @@ onUnmounted(() => {
 
 .fullpage-swiper .swiper-slide {
   height: 100vh !important;
+  height: 100dvh !important;
   overflow: hidden;
+}
+
+/* Permettre le scroll interne sur les slides scrollables */
+.fullpage-swiper #observatoire,
+.fullpage-swiper #solutions {
+  overflow: auto !important;
+  -webkit-overflow-scrolling: touch;
 }
 
 .slide-content {
@@ -224,8 +233,11 @@ onUnmounted(() => {
 .slide-scrollable {
   overflow-y: auto;
   justify-content: flex-start;
+  max-height: 100vh;
+  max-height: 100dvh;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 .slide-scrollable::-webkit-scrollbar {
   display: none;

@@ -78,7 +78,12 @@ const { insights } = useContent()
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  min-height: 100dvh;
   background: #0a0620;
+
+  @media (max-width: 768px) {
+    min-height: auto;
+  }
 }
 
 .insights-layout {
@@ -86,16 +91,22 @@ const { insights } = useContent()
   flex-direction: column;
   flex: 1;
   min-height: 100vh;
+  min-height: 100dvh;
+
+  @media (max-width: 768px) {
+    min-height: auto;
+  }
 }
 
 /* ---- HERO TOP ---- */
 .insights-hero {
   position: relative;
   flex: 0 0 auto;
-  min-height: 50vh;
+  min-height: 28vh;
+    min-height: 28dvh;
   display: flex;
   align-items: center;
-  padding: 2rem 0;
+  padding: 6rem 0 2rem 0;
 }
 
 .insights-hero-bg {
