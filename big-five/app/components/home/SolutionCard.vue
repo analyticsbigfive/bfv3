@@ -100,6 +100,9 @@ defineProps<{
     border-radius: 32px;
     max-width: 100%;
     width: 100%;
+    max-height: 85dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   .card-image {
     flex: 0 0 auto;

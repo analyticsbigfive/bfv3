@@ -454,25 +454,181 @@ right:45px;
     align-items: center !important;
   }
 
-  /* Footer visible sur mobile Safari */
-  #observatoire {
-    overflow: auto !important;
-    -webkit-overflow-scrolling: touch;
-  }
-  #observatoire > .slide-content {
-    height: auto !important;
-    min-height: 100vh;
-    min-height: 100dvh;
-  }
-  .insights-section {
-    min-height: auto !important;
-    flex-shrink: 0;
-  }
-  .insights-layout {
-    min-height: auto !important;
-  }
+  /* Footer slide mobile */
   .footer {
-    flex-shrink: 0 !important;
     padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+}
+
+/* ============================================================
+   TABLET (769px – 1024px) — iPad Mini & iPad
+   ============================================================ */
+@media (min-width: 769px) and (max-width: 1024px) {
+
+  /* --- Header --- */
+  .lepiutan {
+    padding: 0.75em 1.5em !important;
+  }
+  .logo {
+    width: 85px !important;
+  }
+
+  /* --- Hero --- */
+  #metamorphosis {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+
+    span {
+      font-size: 48px !important;
+    }
+    li {
+      font-size: 20px !important;
+      padding: 0.4em 1em !important;
+    }
+  }
+  .hero-title {
+    max-width: 70vw !important;
+  }
+
+  /* --- Agency --- */
+  #agence {
+    .slide-content {
+      padding-top: 80px;
+    }
+    .content-col {
+      flex: 0 0 45%;
+    }
+    .image-col {
+      flex: 0 0 50%;
+    }
+    .subtitle {
+      font-size: 24px !important;
+      max-width: 100% !important;
+    }
+    .description {
+      font-size: 14px !important;
+      max-width: 100% !important;
+    }
+    .agency-image {
+      max-height: 50vh;
+      max-height: 50dvh;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .counter-up {
+      width: 130px;
+      height: 130px;
+    }
+    .counter-value {
+      font-size: 2rem;
+    }
+    .counter-label {
+      font-size: 0.65rem;
+    }
+    .imanotguoi {
+      padding: 0.35rem;
+    }
+  }
+
+  /* --- Team --- */
+  .carousel-slide {
+    gap: 1.5rem !important;
+    padding: 0 0.5rem !important;
+  }
+  .team-card {
+    max-width: 200px !important;
+    max-height: 280px !important;
+    border-radius: 36px !important;
+    padding: 1.25rem 1rem !important;
+  }
+  .team-name {
+    font-size: 0.95rem !important;
+  }
+  .team-role {
+    font-size: 14px !important;
+  }
+  .linkedin-icon {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  /* --- Solutions --- */
+  .circles-wrap {
+    gap: 1.25rem !important;
+  }
+  .solution-item {
+    flex: 0 0 200px !important;
+    max-width: 200px !important;
+  }
+  .bg-section {
+    width: 200px !important;
+    height: 200px !important;
+  }
+  .circle-label {
+    font-size: 14px !important;
+  }
+  .circle-highlight {
+    font-size: 18px !important;
+  }
+  .btn-section {
+    width: 44px !important;
+    height: 44px !important;
+  }
+  .btn-section__circle {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  .btn-section__icon {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  /* --- Insights / Observatoire --- */
+  .insights-hero-content {
+    padding: 2rem !important;
+  }
+  .insights-badge {
+    font-size: 2.5rem !important;
+  }
+  .insights-subtitle {
+    font-size: 1.1rem !important;
+  }
+  .insights-bottom {
+    padding: 2rem !important;
+  }
+  .block-title {
+    font-size: 28px !important;
+  }
+  .block-subtitle {
+    font-size: 18px !important;
+  }
+  .block-desc {
+    font-size: 15px !important;
+  }
+  .bar-label,
+  .bar-value {
+    font-size: 15px !important;
+  }
+  .bar-track {
+    height: 14px !important;
+  }
+
+  /* --- Footer --- */
+  .footer {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .footer-logo {
+    width: 70px !important;
+    height: 50px !important;
+  }
+
+  /* --- Pagination dots --- */
+  .fp-pagination {
+    right: 16px !important;
+  }
+
+  /* --- Solution overlay --- */
+  .solution-detail-wrapper {
+    max-width: 85vw !important;
   }
 }

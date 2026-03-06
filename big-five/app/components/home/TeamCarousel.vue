@@ -316,6 +316,34 @@ function onTouchEnd(e: TouchEvent) {
 }
 /* Activation via main.scss : #equipe.swiper-slide-active */
 
+/* ── Tablet : iPad Mini & iPad ── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .carousel-slide {
+    gap: 1.5rem;
+    padding: 0 0.5rem;
+  }
+  .team-card {
+    max-width: 200px;
+    max-height: 280px;
+    border-radius: 36px;
+    padding: 1.25rem 1rem;
+  }
+  .team-name {
+    font-size: 0.95rem;
+  }
+  .team-role {
+    font-size: 14px;
+  }
+  .linkedin-icon {
+    width: 40px;
+    height: 40px;
+  }
+  .carousel-arrow {
+    width: 40px;
+    height: 40px;
+  }
+}
+
 /* ── Mobile : grille 2×2 ── */
 @media (max-width: 768px) {
   .carousel-slide {

@@ -245,6 +245,39 @@ $btn-gradient-end: #80368d;
 }
 /* Activation via main.scss : #solutions.swiper-slide-active */
 
+/* ── Tablet : iPad Mini & iPad ── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .circles-wrap {
+    gap: 1.25rem;
+  }
+  .solution-item {
+    flex: 0 0 200px;
+    max-width: 200px;
+  }
+  .bg-section {
+    width: 200px;
+    height: 200px;
+  }
+  .circle-label {
+    font-size: 14px;
+  }
+  .circle-highlight {
+    font-size: 18px;
+  }
+  .btn-section {
+    width: 44px;
+    height: 44px;
+  }
+  .btn-section__circle {
+    width: 40px;
+    height: 40px;
+  }
+  .btn-section__icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
 @media (max-width: 768px) {
   .circles-wrap {
     flex-wrap: wrap;
@@ -327,14 +360,16 @@ $btn-gradient-end: #80368d;
     background: rgba(10, 6, 30, 0.85);
   }
   .solution-detail-wrapper {
-        top: 0;
+    top: 0;
     bottom: 0;
     position: absolute;
-    max-height: 75dvh;
-    max-width: 75dvw;
+    max-height: 85dvh;
+    max-width: 85dvw;
     margin: auto;
     border-radius: 50px;
     height: auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   .overlay-close {
     top: 16px;

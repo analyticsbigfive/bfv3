@@ -321,4 +321,48 @@ const { insights } = useContent()
   transition: opacity 0.9s ease 0.1s, transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
 }
 /* Activation via main.scss : #observatoire.swiper-slide-active */
+
+/* ── Tablet : iPad Mini & iPad ── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .insights-hero {
+    min-height: 25vh;
+    min-height: 25dvh;
+    padding: 5rem 0 1.5rem 0;
+  }
+  .insights-hero-content {
+    padding: 1.5rem 2rem;
+  }
+  .insights-badge {
+    font-size: 2.5rem;
+  }
+  .insights-subtitle {
+    font-size: 1.1rem;
+  }
+  .insights-bottom {
+    padding: 2rem;
+  }
+  .insights-columns {
+    gap: 2rem;
+  }
+  .block-title {
+    font-size: 28px;
+  }
+  .block-subtitle {
+    font-size: 18px;
+    margin-top: 1.5rem;
+  }
+  .block-desc {
+    font-size: 15px;
+    margin-top: 1.5rem;
+  }
+  .bar-label,
+  .bar-value {
+    font-size: 15px;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .bar-track {
+    height: 14px;
+  }
+}
 </style>
